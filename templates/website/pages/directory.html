@@ -1,0 +1,30 @@
+{% extends 'website/index.html' %}
+{% block content %}
+    <div class="container-fluid overflow-auto">
+        <h3>Members</h3>
+        <div class="search-bar mt-sm-2 mr-2">
+            <form method="get">
+                <input type="text" autocomplete="on" class="form-control" name="q" id="id_q" placeholder="Search...">
+            </form>
+        </div>
+        <div class="container-fluid mt-2">
+            {% if brothers %}
+                <div class="row">
+                    {% for brother in brothers %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            </div><br><div class="row">
+                        {% endif %}
+                            <div class="col-md">
+                                {% include 'website/components/brother_snippet.html' with brother_object=brother %}
+                            </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                    {% include 'website/components/brother_snippet.html' with query=query %}
+            {% endif %}
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById("id_q").value = "{{ query }}"
+    </script>
+{%endblock%}

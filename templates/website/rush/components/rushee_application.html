@@ -1,0 +1,9 @@
+<div>
+    {{ rushee.first_name }} {{ rushee.last_name }}
+    {% for question, answer in dict.items %}
+        <div>
+            <h2>{{ question }}</h2>
+            <p>{{ answer }}</p>
+        </div>
+    {% endfor %}
+</div>

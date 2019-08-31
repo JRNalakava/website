@@ -1,0 +1,21 @@
+{% if rushee_object %}
+    <div class="card">
+    {% load cloudinary %}
+        <a  class="card-body mb-2" style="width: 100%; min-width: 300px; text-decoration:none;
+        color: black" href="account/{{ rushee_object.username }}">
+            {% cloudinary rushee_object.image format="jpg" width=100 height=100 crop="fill" gravity='faces' %}
+            {{ rushee_object.first_name }} {{ rushee_object.last_name }} - {{ rushee_object.get_college_year }}
+        </a>
+    </div>
+{% else %}
+    <div class="row">
+        <div class="card">
+            <div class="card-body mb-2">
+                <h2 class="card-title">
+                    No results
+                </h2>
+                <p class="card-text">There were no results matching your search :"{{ query }}"</p>
+            </div>
+        </div>
+    </div>
+{% endif %}

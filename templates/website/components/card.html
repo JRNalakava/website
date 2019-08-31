@@ -1,0 +1,35 @@
+<div class="card" style="width: 100%;">
+    {% load cloudinary %}
+    {% cloudinary user.profile.image format="jpg" height=250 crop="fill" gravity='faces' %}
+    <div class="card-body">
+    <h5 class="card-title">{{ user.get_full_name }}</h5>
+    <p class="card-text">{{ user.profile.get_college_year }}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Philantropy
+                <span class="badge badge-primary badge-pill">{{ user.profile.philanthropy_req }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Professional
+                <span class="badge badge-primary badge-pill">{{ user.profile.professional_req }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Technology
+                <span class="badge badge-primary badge-pill">{{ user.profile.tech_req }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Dues
+                {% if user.profile.financial_req %}
+                <span class="badge badge-primary badge-pill badge-success">Paid</span>
+                {% else %}
+                <span class="badge badge-primary badge-pill badge-warning">Missing</span>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</div>

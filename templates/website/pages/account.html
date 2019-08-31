@@ -1,0 +1,87 @@
+{% extends 'website/index.html' %}
+{% block content %}
+    {% load static %}
+    {% load crispy_forms_field %}
+    {% load crispy_forms_tags %}
+    <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% load cloudinary %}
+        <div class="container bg-light">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2>{{ this_user.get_full_name }}</h2>
+                        {% cloudinary this_user.profile.image format="jpg" width=200 height=200 crop="fill" gravity='faces' %}
+                        {{ form.image|as_crispy_field}}
+                    <table class="table table-responsive">
+                        <tbody>
+                                <tr>
+                                    {{ form.first_name|as_crispy_field }}
+                                </tr>
+                                <tr>
+                                    {{ form.last_name|as_crispy_field }}
+                                </tr>
+                                <tr>
+                                    {{ form.email|as_crispy_field }}
+                                </tr>
+                                <tr>
+                                    {{ form.pledge_class|as_crispy_field }}
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-8">
+                    <h1>Additional Information</h1>
+                    <table class="table table-responsive">
+                        <tbody>
+                                <tr>
+                                    {{ form.img_src.errors }}
+                                    <td>{{ form.img_src.label_tag }}</td>
+                                    <td>{{ form.img_src }}</td>
+                                </tr>
+                                <tr>
+                                    {{ form.birth_date.errors }}
+                                    <td>{{ form.birth_date.label_tag }}</td>
+                                    <td>{{ form.birth_date }}</td>
+                                </tr>
+                                <tr>
+                                    {{ form.professional_req.errors }}
+                                    <td>{{ form.professional_req.label_tag }}</td>
+                                    <td>{{ form.professional_req }}</td>
+                                </tr>
+                                <tr>
+                                    {{ form.philanthropy_req.errors }}
+                                    <td>{{ form.philanthropy_req.label_tag }}</td>
+                                    <td>{{ form.philanthropy_req }}</td>
+                                </tr>
+                                <tr>
+                                    {{ form.tech_req.errors }}
+                                    <td>{{ form.tech_req.label_tag }}</td>
+                                    <td>{{ form.tech_req }}</td>
+                                </tr>
+                                <tr>
+                                    {{ form.financial_req.errors }}
+                                    <td>{{ form.financial_req.label_tag }}</td>
+                                    <td>{{ form.financial_req }}</td>
+                                </tr>
+                                <tr>
+                                    {{ form.college_year_selection.errors }}
+                                    <td>{{ form.college_year_selection.label_tag }}</td>
+                                    <td>{{ form.college_year_selection }}</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                    <h1>Connect</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ml-auto col-auto">
+                    {% if staff == True %}
+                        <button type="submit" class="btn btn-primary mb-3" id="requestChangeId">Save Changes</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary mb-3" id="requestChangeId">Request Changes</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+{%endblock%}

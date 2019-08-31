@@ -1,0 +1,28 @@
+{% extends 'website/index.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>{{ this_user.get_full_name }}</h2>
+            <div style="margin: 0 auto">
+                <img class="img-fluid" alt="Responsive image" src="{{this_user.profile.img_src}}
+                    "onError="this.onerror=null;
+                    this.src='http://kempenfeltplayers.com/wp-content/uploads/2015/07/profile-icon-empty.png';">
+            </div>
+            <div class="row" style="word-wrap: break-word">
+                <div class="col">First Name</div>
+                <div class="col">{{ this_user.first_name }}</div>
+                <div class="w-100"></div>
+                <div class="col">Last Name</div>
+                <div class="col">{{ this_user.last_name }}</div>
+                <div class="w-100"></div>
+                <div class="col-6">E-mail</div>
+                <div class="col-6">{{ this_user.email }}</div>
+                <div class="w-100"></div>
+                <div class="col">Pledge Class</div>
+                <div class="col">{{ this_user.profile.pledge_class }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

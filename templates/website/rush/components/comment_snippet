@@ -1,0 +1,16 @@
+<div class="card my-2">
+    <div class="card-header">
+            {{ comment_object.author.get_full_name }}
+            {% if comment_object.author.id == user.id %}
+                <span><input class="btn" type="button" style="float: right" name="delete" onclick="delete_fun()" value="X"></span>
+            {% endif %}
+    </div>
+    <p class="card-text">
+        {{ comment_object.comment_text }}
+    </p>
+    <script>
+        function delete_fun() {
+            window.location.replace("./{{ rushee.username }}/{{ comment_object.id }}")
+        }
+    </script>
+</div>

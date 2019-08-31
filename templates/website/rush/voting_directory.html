@@ -1,0 +1,30 @@
+{% extends 'website/index.html' %}
+{% block content %}
+    <div class="container-fluid overflow-auto">
+        <h3>Rushees</h3>
+        <div class="search-bar mt-sm-2 mr-2">
+            <form method="get">
+                <input type="text" autocomplete="on" class="form-control" name="q" id="id_q" placeholder="Search...">
+            </form>
+        </div>
+        <div class="container-fluid mt-2">
+            {% if rushees %}
+                <div class="row">
+                    {% for rushee in rushees %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            </div><br><div class="row">
+                        {% endif %}
+                            <div class="col-md">
+                                {% include 'website/rush/components/rushee_snippet.html' with rushee_object=rushee %}
+                            </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                    {% include 'website/rush/components/rushee_snippet.html' with query=query %}
+            {% endif %}
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById("id_q").value = "{{ query }}"
+    </script>
+{% endblock %}

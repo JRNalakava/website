@@ -1,0 +1,53 @@
+{% extends 'website/index.html' %}
+{% block content %}
+    <div class="row" style="height: 100%">
+    <div class="col-sm-3 bg-light mx-2">
+        {% load cloudinary %}
+        <div class="row">
+            <div class="col text-center">
+                {% cloudinary rushee.image format="jpg" width=200 height=200 crop="thumb" gravity='faces' %}
+            </div>
+            <div class="col">
+                <h2>{{ rushee.first_name }} {{ rushee.last_name }}</h2>
+                <i>{{ rushee.get_college_year }}</i>
+                <div class="container-fluid">
+                    <input type="button" class="btn btn-block btn-primary h-100 my-5" value="Vote" onclick="vote()">
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-sm-6 mx-2">
+            {% for question, answer in dict.items %}
+                <div class="card my-3">
+                    <div class="card-header">
+                        <h2>{{ question }}</h2>
+                    </div>
+                    <p class="card-text">{{ answer }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-sm bg-info mx-2">
+            <h1>Submit your vote</h1>
+            {% load ratings %}
+
+            {% ratings rushee %}
+        <div class="my-5 overflow-auto" style="overflow-y: scroll; height: 15rem;">
+                {% for comment in comments %}
+                    {% include 'website/rush/components/comment_snippet' with comment_object=comment rushee=rushee %}
+                {% endfor %}
+        </div>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" id="comment_id" style="width: 100%" placeholder="Add your comment here" name="comment_input">
+                <br>
+                <span style="float: right"><input type="submit" class="btn btn-primary" value="Submit"></span>
+            </form>
+        </div>
+    </div>
+    <script>
+        function vote() {
+            window.location.replace("/../rush/vote/{{ rushee.username }}")
+    }
+    </script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'website/index.html' %}
+{% block content %}
+    {% if is_open %}
+        {% if has_voted %}
+            <div class="container bg-warning">
+                <h1>Unavailable</h1>
+                <p>You have already voted for this rushee</p>
+            </div>
+        {% else %}
+            <div class="container-fluid" style="height: 100%">
+                <div class="row h-100" style="height: 100%">
+                    <div class="col-sm">
+                        <input class="btn btn-success btn-block h-100" value="YES" onclick="vote_yes()" name="yes_button">
+                    </div>
+                    <div class="col-sm">
+                        <input class="btn btn-danger btn-block h-100" value="NO" onclick="vote_no()" name="no_button">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container bg-warning">
+            <h1>Unavailable</h1>
+            <p>Voting is not yet opened.</p>
+        </div>
+    {% endif %}
+    <script>
+    function vote_yes() {
+        window.location.replace("./{{ rushee.username }}/YES")
+    }
+    function vote_no() {
+        window.location.replace("./{{ rushee.username }}/NO")
+    }
+    </script>
+{% endblock %}

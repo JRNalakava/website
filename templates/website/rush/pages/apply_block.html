@@ -1,0 +1,27 @@
+{% extends 'website/rush/rush_index.html' %}
+{% block content %}
+    <form method="post">
+    <div class="container scale-in-center">
+        <div class="jumbotron mt-5 bg-light">
+        {% csrf_token %}
+        <h1 class="display-4">Rush Application</h1>
+        <h6 class="lead">Your username is <strong>{{ rushee }}</strong>. Save it so you can resume your application later.</h6>
+        <hr class="my-4">
+        {% if dict %}
+            {% for question, answer in dict.items %}
+                <div class="form-group">
+                    {{ question.errors }}
+                    <label for="input">{{ question.question }}</label>
+                    <input id='input{{ forloop.counter0 }}' class="form-control" type="text" value="{{ answer }}" name="{{ forloop.counter0 }}">
+                </div>
+                <br>
+            {% endfor %}
+            <input type="submit" id="submitButton" value="Submit" name="apply">
+            <input type="submit" value="Save" name="save">
+        {% else %}
+            <h1>No questions available so far</h1>
+        {% endif %}
+        </div>
+    </div>
+    </form>
+{% endblock %}

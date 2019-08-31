@@ -1,0 +1,30 @@
+{% if brother_object %}
+    <div class="card">
+    {% load cloudinary %}
+    {% if user.is_staff %}
+        <a  class="card-body mb-2" style="width: 100%; min-width: 300px; text-decoration:none;
+        color: black" href="accounts/manage/{{ brother_object.username }}">
+            {% cloudinary brother_object.profile.image format="jpg" width=100 height=100 crop="fill" gravity='faces' %}
+            {{ brother_object.get_full_name }}
+        </a>
+    {% else %}
+        <a  class="card-body mb-2" style="width: 100%; min-width: 300px; text-decoration:none;
+        color: black" href="accounts/{{ brother_object.username }}">
+            {% cloudinary brother_object.profile.image format="jpg" width=100 height=100 crop="fill" gravity='faces' %}
+            {{ brother_object.get_full_name }}
+        </a>
+    {% endif %}
+    </div>
+
+{% else %}
+    <div class="row">
+        <div class="card">
+            <div class="card-body mb-2">
+                <h2 class="card-title">
+                    No results
+                </h2>
+                <p class="card-text">There were no results matching your search :"{{ query }}"</p>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,10 @@
+{% extends 'website/rush/rush_index.html' %}
+{% block content %}
+    <div class="alert-danger">
+        Your form is incomplete. Return to complete it.
+    </div>
+    <form action="../{{ rushee }}" method="get">
+    <input type="submit" value="Return"
+         name="return" />
+    </form>
+{% endblock %}
