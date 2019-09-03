@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import dj_database_url
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
@@ -20,7 +21,6 @@ import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -32,7 +32,6 @@ SECRET_KEY = 'kn)$pdxsbx_tcrw3@qq4tv71ho0tu$v1svtzmrjnr_!5h^d^##'
 DEBUG = True
 
 ALLOWED_HOSTS = ['iota.herokuapp.com']
-
 
 # Application definition
 
@@ -81,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -91,7 +89,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -111,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -124,7 +120,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -149,12 +144,27 @@ STATIC_URL = "/static/"
 
 
 cloudinary.config(
-  cloud_name="texasakpsi",
-  api_key="863751158615252",
-  api_secret="coN2QfGlW2RU_EX_QBT_p5uVz-Y"
+    cloud_name="texasakpsi",
+    api_key="863751158615252",
+    api_secret="coN2QfGlW2RU_EX_QBT_p5uVz-Y"
 )
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 django_heroku.settings(locals())
+
+in_heroku = False
+if 'DATABASE_URL' in os.environ:
+    in_heroku = True
+
+
+if in_heroku:
+    DATABASES = {'default': dj_database_url.config()}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
