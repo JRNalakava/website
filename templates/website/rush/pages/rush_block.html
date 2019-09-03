@@ -9,7 +9,7 @@
                 your application.</p>
             <hr class="my-4">
             <div class="row">
-                <div class="col-6">
+                <div class="col-6-sm">
                     <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
@@ -39,7 +39,7 @@
                         <input type="submit" class="btn btn-primary" value="Go to Application" name="rush">
                     </form>
                 </div>
-                <div class="col-6">
+                <div class="col-6-sm">
                     <form action="" method="post">
                         {% csrf_token %}
                         {{ login_form | crispy }}
