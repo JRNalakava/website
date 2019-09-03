@@ -27,7 +27,7 @@ class Rushee(models.Model):
     username = models.CharField(max_length=100, default='username'+str((int(1000*random()))))
     yes_votes = models.PositiveIntegerField(default=0)
     no_votes = models.PositiveIntegerField(default=0)
-    voters = models.ManyToManyField('mysite.Profile')
+    voters = models.ManyToManyField('mysite.Profile', blank=True)
     FRESHMAN = 0
     SOPHOMORE = 1
     JUNIOR = 2

@@ -16,7 +16,7 @@ class Profile(models.Model):
     last_name = models.CharField(default="Doe", max_length=20)
     email = models.CharField(default="utakpsi@gmail.com", max_length=255)
     birth_date = models.DateField(null=True, blank=True)
-    votes = models.ManyToManyField(Rushee)
+    votes = models.ManyToManyField(Rushee, blank=True)
 
     image = CloudinaryField(
         "Image",
