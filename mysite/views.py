@@ -31,7 +31,7 @@ def directory(request):
     if request.GET:
         query = request.GET['q']
         context['query'] = str(query)
-    brothers = sorted(get_brother_queryset(query), key=operator.attrgetter('last_name'))
+    brothers = sorted(get_brother_queryset(query), key=operator.attrgetter('first_name'))
     context['brothers'] = brothers
     return render(request, 'website/pages/directory.html', context)
 
