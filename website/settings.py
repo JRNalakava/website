@@ -29,7 +29,7 @@ SECRET_KEY = 'kn)$pdxsbx_tcrw3@qq4tv71ho0tu$v1svtzmrjnr_!5h^d^##'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['iota.herokuapp.com']
 
 
 # Application definition
