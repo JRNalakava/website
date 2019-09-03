@@ -22,7 +22,7 @@ class ContactForm(forms.ModelForm):
             'tech_req': 'Tech Requirement',
             'financial_req': 'Financial Requirement (Dues)',
             'college_year_selection': 'Year in College',
-            'image': 'Update Image'
+            'image': 'Profile Picture'
         }
 
 

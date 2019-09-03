@@ -11,7 +11,7 @@
                 <div class="col-sm-4">
                     <h2>{{ this_user.get_full_name }}</h2>
                         {% cloudinary this_user.profile.image format="jpg" width=200 height=200 crop="fill" gravity='faces' %}
-                        {{ form.image|as_crispy_field}}
+                        <input id="id_image" class="clearable-file-input" type="file" name="image">
                     <table class="table table-responsive">
                         <tbody>
                                 <tr>
