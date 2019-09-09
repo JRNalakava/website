@@ -33,6 +33,10 @@
                             {{ form.college_year_selection | as_crispy_field }}
                         </div>
                         <div class="form-group">
+                            {{ form.major.errors }}
+                            {{ form.major | as_crispy_field }}
+                        </div>
+                        <div class="form-group">
                             {{ form.image.errors }}
                             {{ form.image | as_crispy_field }}
                         </div>
