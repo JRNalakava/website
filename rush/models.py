@@ -27,7 +27,7 @@ class Rushee(models.Model):
     date_of_application = models.DateTimeField(default=timezone.now)
     responses = models.TextField(default='')
     random_id = models.IntegerField(default=0)
-    username = models.CharField(max_length=100, default='username'+str((int(1000*random()))))
+    username = models.CharField(max_length=100, default='username'+str((random_id)))
     voters = models.ManyToManyField('mysite.Profile', blank=True)
     num_of_votes = models.IntegerField(default=0)
     aggregate_votes = models.IntegerField(default=0)
@@ -105,6 +105,8 @@ class Rushee(models.Model):
     def set_username(self):
         self.username = self.first_name[0].lower() + "" + self.last_name + "_" + str(self.random_id)
 
+    def major_str(self):
+        return self.majors.get(self.major)
 
 class RushComment(models.Model):
     comment_text = models.TextField(null=False, default='')
