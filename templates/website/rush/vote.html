@@ -1,5 +1,6 @@
 {% extends 'website/index.html' %}
 {% block content %}
+    {% load static %}
     {% if is_open %}
         {% if has_voted %}
             <div class="container bg-warning">
@@ -9,12 +10,34 @@
         {% else %}
             <div class="container-fluid" style="height: 100%">
                 <div class="row h-100" style="height: 100%">
-                    <div class="col-sm">
-                        <input class="btn btn-success btn-block h-100" value="YES" onclick="vote_yes()" name="yes_button">
-                    </div>
-                    <div class="col-sm">
-                        <input class="btn btn-danger btn-block h-100" value="NO" onclick="vote_no()" name="no_button">
-                    </div>
+                    <p>Click on the desired otter (1-5) to enter your vote</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row mh-100">
+                            <div class="col-1"></div>
+                            <div class="col-lg-2">
+                                <input class="d-inline img-fluid h-50" name="star_1" id="star_1" type="image" src="{% static 'otter-face-angry.png' %}">
+                                <p class="text-muted text-center">1</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="d-inline img-fluid h-50" name="star_2" id="star_2" type="image" src="{% static 'otter-face-sad.png' %}">
+                                <p class="text-muted text-center">2</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="d-inline img-fluid h-50" name="star_3" id="star_3" type="image" src="{% static 'otter-face-bored.png' %}">
+                                <p class="text-muted text-center">3</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="d-inline img-fluid h-50" name="star_4" id="star_4" type="image" src="{% static 'otter-face-happy.png' %}">
+                                <p class="text-muted text-center">4</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="d-inline img-fluid h-50" name="star_5" id="star_5" type="image" src="{% static 'otter-face-celebrate.png' %}">
+                                <p class="text-muted text-center">5</p>
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
         {% endif %}
@@ -24,12 +47,4 @@
             <p>Voting is not yet opened.</p>
         </div>
     {% endif %}
-    <script>
-    function vote_yes() {
-        window.location.replace("./{{ rushee.username }}/YES")
-    }
-    function vote_no() {
-        window.location.replace("./{{ rushee.username }}/NO")
-    }
-    </script>
 {% endblock %}

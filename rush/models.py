@@ -4,7 +4,9 @@ from random import random
 from cloudinary.models import CloudinaryField
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from star_ratings.models import Rating
 
 
 class Question(models.Model):
@@ -25,9 +27,9 @@ class Rushee(models.Model):
     responses = models.TextField(default='')
     random_id = models.IntegerField(default=int(1000*random()))
     username = models.CharField(max_length=100, default='username'+str((int(1000*random()))))
-    yes_votes = models.PositiveIntegerField(default=0)
-    no_votes = models.PositiveIntegerField(default=0)
     voters = models.ManyToManyField('mysite.Profile', blank=True)
+    num_of_votes = models.IntegerField(default=0)
+    aggregate_votes = models.IntegerField(default=0)
     FRESHMAN = 0
     SOPHOMORE = 1
     JUNIOR = 2

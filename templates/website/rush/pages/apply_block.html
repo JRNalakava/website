@@ -16,11 +16,18 @@
                 </div>
                 <br>
             {% endfor %}
-            <input type="submit" id="submitButton" value="Submit" name="apply">
+            {% if app_open %}
+                <input type="submit" id="submitButton" value="Submit" name="apply">
+            {% else %}
+                <input disabled type="submit" id="submitButton" value="Submit" name="apply">
+                <span class="alert-warning">You can not apply right now</span>
+            {% endif %}
             <input type="submit" value="Save" name="save">
         {% else %}
             <h1>No questions available so far</h1>
         {% endif %}
+        {% load tz %}
+        <div class="d-block mt-3 badge badge-info">Application closes at {{ app_closes | localtime}}</div>
         </div>
     </div>
     </form>

@@ -46,6 +46,10 @@ def rush(request):
 
 def apply(request, username):
     questions = Question.objects.all()
+    context = dict()
+    context['app_open'] = Date.objects.filter(description='Application Opens')[0].date <= timezone.now() <= \
+                          Date.objects.filter(description='Application Closes')[0].date
+    context['app_closes'] = Date.objects.filter(description='Application Closes')[0].date
     answers = []
     if request.method == 'POST':
         rushee = Rushee.objects.filter(username=username)[0]
@@ -84,8 +88,11 @@ def apply(request, username):
         for i in range(len(questions)):
             dictionary[questions[i]] = answers[i]
 
-        return render(request, 'website/rush/pages/apply_block.html', {'rushee': username, 'dict': dictionary,
-                                                                       'dict_size': len(dictionary)})
+        context['rushee'] = username
+        context['dict'] = dictionary
+        context['dict_size'] = len(dictionary)
+
+        return render(request, 'website/rush/pages/apply_block.html', context)
 
 
 def save(request):
@@ -106,7 +113,8 @@ def directory(request):
     query = ""
     if request.GET:
         query = request.GET['q']
-        context['query'] = str(query)
+        rushees = ''
+    context['query'] = str(query)
     rushees = sorted(get_rushee_queryset(query), key=operator.attrgetter('last_name'))
     context['rushees'] = rushees
     return render(request, 'website/rush/voting_directory.html', context)
@@ -168,6 +176,25 @@ def vote(request, username):
     context['rushee'] = rushee
     context['is_open'] = Date.objects.filter(description='Voting')[0].date <= timezone.now()
 
+    if request.method == 'POST':
+        if 'star_1.x' in request.POST:
+            rushee.aggregate_votes += 1
+            rushee.num_of_votes += 1
+        elif 'star_2.x' in request.POST:
+            rushee.aggregate_votes += 2
+            rushee.num_of_votes += 1
+        elif 'star_3.x' in request.POST:
+            rushee.aggregate_votes += 3
+            rushee.num_of_votes += 1
+        elif 'star_4.x' in request.POST:
+            rushee.aggregate_votes += 4
+            rushee.num_of_votes += 1
+        elif 'star_5.x' in request.POST:
+            rushee.aggregate_votes += 5
+            rushee.num_of_votes += 1
+        rushee.voters.add(request.user.profile)
+        rushee.save()
+
     if request.user.profile in rushee.voters.all():
         context['has_voted'] = True
     else:
@@ -183,7 +210,7 @@ def register_vote(request, username, vote_value):
             rushee.yes_votes += 1
         if vote_value == 'NO':
             rushee.no_votes += 1
-        rushee.voters.add(request.user.profile)
+
         print(request.user.profile)
         rushee.save()
     print(rushee.voters.all())
