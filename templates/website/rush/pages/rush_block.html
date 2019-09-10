@@ -36,7 +36,7 @@
                             {{ form.major.errors }}
                             {{ form.major | as_crispy_field }}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group responsive">
                             {{ form.image.errors }}
                             {{ form.image | as_crispy_field }}
                         </div>
@@ -44,10 +44,14 @@
                     </form>
                 </div>
                 <div class="col-6-sm">
+                    <div class="hidden-lg">
+                        <div class="border-top my-3"></div>
+                    </div>
                     <form action="" method="post">
                         {% csrf_token %}
                         {{ login_form | crispy }}
                         <input type="submit" class="btn btn-info" value="Login" name="login">
+                        <div class="badge badge-pill badge-warning">Only login if you have already started an application</div>
                     </form>
                 </div>
             </div>
