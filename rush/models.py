@@ -30,6 +30,7 @@ class Rushee(models.Model):
     voters = models.ManyToManyField('mysite.Profile', blank=True)
     num_of_votes = models.IntegerField(default=0)
     aggregate_votes = models.IntegerField(default=0)
+    attended_info_session = models.BooleanField(default=True)
     FRESHMAN = 0
     SOPHOMORE = 1
     JUNIOR = 2
