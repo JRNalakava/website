@@ -75,7 +75,7 @@ class Rushee(models.Model):
         (116, 'Undeclared (Liberal Arts)'), (117, 'Undeclared (Natural Sciences)'), (118, 'Urban Studies'),
         (119, 'Visual Art Studies'), (120, 'Womenâ€™s and Gender Studies'),
     ]
-    major = models.CharField(null=False, max_length=40, choices=majors, default = 114)
+    major = models.PositiveSmallIntegerField(null=False, choices=majors, default=114)
     image = CloudinaryField(
         "Image",
         default='https://res.cloudinary.com/texasakpsi/image/upload/c_thumb,w_200,g_face/v1566281324/profile_pics/blank-profile-picture_twrtwg.png',

@@ -11,6 +11,7 @@ class RusheeForm(forms.ModelForm):
                   'last_name': 'Last Name',
                   'email': 'E-mail',
                   'phone_num': 'Phone Number',
+                  'major': 'Major',
                   'image': 'Profile Picture'}
         fields = ['first_name', 'last_name', 'email', 'phone_num', 'college_year_selection', 'major', 'image']
 

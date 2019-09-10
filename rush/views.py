@@ -15,6 +15,8 @@ from . import forms
 
 # Create your views here.
 def rush(request):
+    form = forms.RusheeForm()
+    login_form = forms.LoginForm()
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         if 'rush' in request.POST:
