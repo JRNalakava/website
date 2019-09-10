@@ -1,9 +1,6 @@
 import datetime
 import operator
 from random import random
-import sendgrid
-import os
-from sendgrid.helpers.mail import *
 
 
 from django.contrib.auth.decorators import login_required
