@@ -1,7 +1,9 @@
 import datetime
 import operator
+from random import random
 
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -10,6 +12,7 @@ from django.utils import timezone
 
 from rush.models import Rushee, Question, RushComment
 from mysite.models import Date
+from website import settings
 from . import forms
 
 
@@ -28,8 +31,16 @@ def rush(request):
                 # ...
                 # redirect to a new URL:
                 rushee = form.save()
+                rushee.random_id = int(1000 * random())
+                rushee.save()
                 rushee.set_username()
                 rushee.save()
+
+                subject = "Rush Application: " + rushee.first_name
+                message = rushee.first_name + ", thanks for starting your rush process. Your username is " \
+                          + rushee.username
+                send_mail(subject, message, from_email=settings.EMAIL_HOST_USER, recipient_list=[rushee.email],
+                          fail_silently=False)
                 return HttpResponseRedirect('apply/' + str(rushee.username))
         elif 'login' in request.POST:
             login_form = forms.LoginForm(request.POST)
