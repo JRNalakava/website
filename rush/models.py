@@ -76,7 +76,8 @@ class Rushee(models.Model):
         (109, 'Supply Chain Management'), (110, 'Sustainability Studies'), (111, 'Textiles and Apparel'),
         (112, 'Theatre and Dance'), (113, 'Theatre Studies'), (114, 'Undeclared'), (115, 'Undeclared (Communication)'),
         (116, 'Undeclared (Liberal Arts)'), (117, 'Undeclared (Natural Sciences)'), (118, 'Urban Studies'),
-        (119, 'Visual Art Studies'), (120, 'Womenâ€™s and Gender Studies'),
+        (119, 'Unspecified Business'),
+        (120, 'Visual Art Studies'), (121, 'Women\'s and Gender Studies'),
     ]
     major = models.PositiveSmallIntegerField(null=False, choices=majors, default=114)
     image = CloudinaryField(
