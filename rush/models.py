@@ -106,7 +106,7 @@ class Rushee(models.Model):
         self.username = self.first_name[0].lower() + "" + self.last_name + "_" + str(self.random_id)
 
     def major_str(self):
-        return self.majors.get(self.major)
+        return self.majors[self.major][1]
 
 class RushComment(models.Model):
     comment_text = models.TextField(null=False, default='')
