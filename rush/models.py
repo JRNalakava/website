@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.utils import timezone
 from star_ratings.models import Rating
 
 
@@ -23,9 +24,9 @@ class Rushee(models.Model):
     email = models.EmailField(null=False)
     phone_num = models.CharField(null=False, max_length=10)
     submitted_form = models.BooleanField(default=False)
-    date_of_application = models.DateTimeField(default=datetime.datetime.now)
+    date_of_application = models.DateTimeField(default=timezone.now)
     responses = models.TextField(default='')
-    random_id = models.IntegerField(default=int(1000*random()))
+    random_id = models.IntegerField(default=0)
     username = models.CharField(max_length=100, default='username'+str((int(1000*random()))))
     voters = models.ManyToManyField('mysite.Profile', blank=True)
     num_of_votes = models.IntegerField(default=0)

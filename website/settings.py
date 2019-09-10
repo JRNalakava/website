@@ -127,7 +127,7 @@ STATIC_URL = '/static/'
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

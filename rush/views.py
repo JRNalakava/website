@@ -1,6 +1,10 @@
 import datetime
 import operator
 from random import random
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
+
 
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -81,10 +85,11 @@ def apply(request, username):
             if empty:
                 rushee.save()
                 return HttpResponseRedirect('incomplete/' + str(rushee.username))
-            rushee.submitted_form = True
-            rushee.date_of_application = datetime.datetime.now()
-            rushee.save()
-            return HttpResponseRedirect('done/' + str(rushee.username))
+            else:
+                rushee.submitted_form = True
+                rushee.date_of_application = timezone.now()
+                rushee.save()
+                return HttpResponseRedirect('done/' + str(rushee.username))
         elif 'save' in request.POST:
             rushee.save()
             return HttpResponseRedirect('' + str(rushee.username))

@@ -4,7 +4,7 @@
     <div class="card-body">
     <h5 class="card-title">{{ user.get_full_name }}</h5>
     <p class="card-text">{{ user.profile.get_college_year }}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <a href="{% url 'account' %}" class="btn btn-primary">My Account</a>
     </div>
 </div>
 <div class="card" style="width: 100%;">

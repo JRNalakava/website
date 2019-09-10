@@ -11,6 +11,10 @@ from .forms import ContactForm
 from .helper import get_user_on_type
 from .models import Post, User
 
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
+
 
 @login_required
 # Create your views here.
@@ -40,6 +44,8 @@ def directory(request):
 def save_form(form, request):
     profile = form.save(commit=False)
     user = request.user
+    print(profile)
+    print(user)
     user.email = profile.email
     user.first_name = profile.first_name
     user.last_name = profile.last_name
@@ -98,7 +104,8 @@ def save_all(form, request, user):
     user.email = profile.email
     user.first_name = profile.first_name
     user.last_name = profile.last_name
-    user.profile.image = request.FILES.get('image')
+    if 'image' in request.FILES:
+        user.profile.image = request.FILES.get('image')
     user.profile.pledge_class = profile.pledge_class
     user.profile.financial_req = profile.financial_req
     user.profile.philanthropy_req = profile.philanthropy_req
@@ -113,12 +120,12 @@ def save_all(form, request, user):
 
 @login_required
 def account(request):
-    staff = request.user.profile.is_exec()
+    staff = request.user.profile.is_exec() or request.user.is_staff or request.user.is_superuser
     if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
-            if request.user.profile.is_exec():
-                save_all(form, request)
+            if staff:
+                save_all(form, request, request.user)
             else:
                 save_form(form, request)
     else:

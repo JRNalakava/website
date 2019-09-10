@@ -8,7 +8,7 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ["user", "isPhilDirector", "isPresident", "isProfDirector", "isSocialDirector",
-                   "isTechDirector", "isVP", "user_id"]
+                   "isTechDirector", "isVP", "user_id", "votes"]
         localized_fields = ('birth_date',)
         labels = {
             'first_name': 'First Name',
